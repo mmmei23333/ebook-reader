@@ -93,7 +93,7 @@ class _ReaderScreenState extends State<ReaderScreen> with WidgetsBindingObserver
       });
     } catch (e) {
       setState(() {
-        _txtContent = 'Error loading file: $e';
+        _txtContent = '加载文件失败: $e';
       });
     }
   }
@@ -107,7 +107,7 @@ class _ReaderScreenState extends State<ReaderScreen> with WidgetsBindingObserver
       final chapters = <String>[];
       if (book.Chapters != null) {
         for (final chapter in book.Chapters!) {
-          String chapterTitle = chapter.Title ?? 'Untitled Chapter';
+          String chapterTitle = chapter.Title ?? '未命名章节';
           String chapterContent = '';
 
           if (chapter.HtmlContent != null) {
@@ -128,7 +128,7 @@ class _ReaderScreenState extends State<ReaderScreen> with WidgetsBindingObserver
       });
     } catch (e) {
       setState(() {
-        _epubChapters = ['Error loading EPUB: $e'];
+        _epubChapters = ['加载 EPUB 失败: $e'];
       });
     }
   }
@@ -176,7 +176,7 @@ class _ReaderScreenState extends State<ReaderScreen> with WidgetsBindingObserver
       case 'txt':
         return _buildTxtReader();
       default:
-        return const Center(child: Text('Unsupported format'));
+        return const Center(child: Text('不支持的格式'));
     }
   }
 
@@ -243,7 +243,7 @@ class _ReaderScreenState extends State<ReaderScreen> with WidgetsBindingObserver
             children: [
               // Chapter title
               Text(
-                'Chapter ${_currentChapter + 1}',
+                '第 ${_currentChapter + 1} 章',
                 style: TextStyle(
                   fontSize: _fontSize + 4,
                   fontWeight: FontWeight.bold,
@@ -364,7 +364,7 @@ class _ReaderScreenState extends State<ReaderScreen> with WidgetsBindingObserver
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Chapter ${_currentChapter + 1}/${_epubChapters.length}',
+                  '第 ${_currentChapter + 1}/${_epubChapters.length} 章',
                   style: const TextStyle(color: Colors.white),
                 ),
                 Text(
@@ -464,9 +464,9 @@ class _ReaderScreenState extends State<ReaderScreen> with WidgetsBindingObserver
   void _addBookmark() {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('Bookmark added at page ${_currentPage + 1}'),
+        content: Text('已添加书签：第 ${_currentPage + 1} 页'),
         action: SnackBarAction(
-          label: 'View',
+          label: '查看',
           onPressed: () {},
         ),
       ),
@@ -476,7 +476,7 @@ class _ReaderScreenState extends State<ReaderScreen> with WidgetsBindingObserver
   void _showChapterList() {
     if (widget.book.format.toLowerCase() != 'epub' || _epubChapters.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Chapter navigation available for EPUB only')),
+        const SnackBar(content: Text('目录导航仅支持 EPUB 格式')),
       );
       return;
     }
@@ -490,7 +490,7 @@ class _ReaderScreenState extends State<ReaderScreen> with WidgetsBindingObserver
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Chapters',
+                '第 '
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: 16),

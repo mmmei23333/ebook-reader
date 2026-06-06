@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Ebook Reader'),
+        title: const Text('Mei 阅读器'),
         centerTitle: true,
         actions: [
           IconButton(
@@ -49,15 +49,15 @@ class _HomeScreenState extends State<HomeScreen> {
         destinations: const [
           NavigationDestination(
             icon: Icon(Icons.library_books),
-            label: 'Library',
+            label: '书架',
           ),
           NavigationDestination(
             icon: Icon(Icons.history),
-            label: 'Recent',
+            label: '最近',
           ),
           NavigationDestination(
             icon: Icon(Icons.settings),
-            label: 'Settings',
+            label: '设置',
           ),
         ],
       ),
@@ -100,12 +100,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  'Your library is empty',
+                  '书架空空如也',
                   style: Theme.of(context).textTheme.headlineSmall,
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'Tap + to import books',
+                  '点击 + 导入书籍',
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
                   ),
@@ -144,7 +144,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
         if (recentBooks.isEmpty) {
           return const Center(
-            child: Text('No recently read books'),
+            child: Text('暂无阅读记录'),
           );
         }
 
@@ -211,7 +211,7 @@ class _HomeScreenState extends State<HomeScreen> {
         const Divider(),
         ListTile(
           leading: const Icon(Icons.dark_mode),
-          title: const Text('Dark Mode'),
+          title: const Text('深色模式'),
           trailing: Switch(
             value: Theme.of(context).brightness == Brightness.dark,
             onChanged: (value) {
@@ -221,7 +221,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         ListTile(
           leading: const Icon(Icons.font_download),
-          title: const Text('Font Size'),
+          title: const Text('字体大小'),
           trailing: const Icon(Icons.chevron_right),
           onTap: () {
             // TODO: Implement font size settings
@@ -229,13 +229,13 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         ListTile(
           leading: const Icon(Icons.info),
-          title: const Text('About'),
+          title: const Text('关于'),
           onTap: () {
             showAboutDialog(
               context: context,
-              applicationName: 'Ebook Reader',
+              applicationName: 'Mei 阅读器',
               applicationVersion: '1.0.0',
-              applicationLegalese: '© 2024 Ebook Reader',
+              applicationLegalese: '© 2024 Mei 阅读器',
             );
           },
         ),

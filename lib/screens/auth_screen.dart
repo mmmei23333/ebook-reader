@@ -54,7 +54,7 @@ class _AuthScreenState extends State<AuthScreen> {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('验证邮件已发送，请检查邮箱'),
+              content: Text('注册成功！验证邮件已发送，请检查邮箱'),
               duration: Duration(seconds: 5),
             ),
           );
@@ -73,7 +73,7 @@ class _AuthScreenState extends State<AuthScreen> {
             _errorMessage = '该邮箱已被注册';
             break;
           case 'weak-password':
-            _errorMessage = '密码强度不够，至少6位';
+            _errorMessage = '密码至少需要6位';
             break;
           case 'invalid-email':
             _errorMessage = '邮箱格式不正确';
@@ -150,7 +150,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    'Ebook Reader',
+                    'Mei 阅读器',
                     style: TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
@@ -184,7 +184,7 @@ class _AuthScreenState extends State<AuthScreen> {
                               controller: _emailController,
                               keyboardType: TextInputType.emailAddress,
                               decoration: InputDecoration(
-                                labelText: '邮箱',
+                                labelText: '邮箱地址',
                                 prefixIcon: const Icon(Icons.email),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
@@ -207,7 +207,7 @@ class _AuthScreenState extends State<AuthScreen> {
                               controller: _passwordController,
                               obscureText: _obscurePassword,
                               decoration: InputDecoration(
-                                labelText: '密码',
+                                labelText: '输入密码',
                                 prefixIcon: const Icon(Icons.lock),
                                 suffixIcon: IconButton(
                                   icon: Icon(
@@ -241,7 +241,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                 controller: _confirmPasswordController,
                                 obscureText: true,
                                 decoration: InputDecoration(
-                                  labelText: '确认密码',
+                                  labelText: '再次输入密码',
                                   prefixIcon: const Icon(Icons.lock_outline),
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(12),
@@ -303,7 +303,7 @@ class _AuthScreenState extends State<AuthScreen> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(_isLogin ? '没有账号？' : '已有账号？'),
+                                Text(_isLogin ? '还没有账号？' : '已有账号？'),
                                 TextButton(
                                   onPressed: () {
                                     setState(() {
@@ -312,7 +312,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                       _formKey.currentState?.reset();
                                     });
                                   },
-                                  child: Text(_isLogin ? '立即注册' : '去登录'),
+                                  child: Text(_isLogin ? '立即注册' : '返回登录'),
                                 ),
                               ],
                             ),
