@@ -62,7 +62,7 @@ class _ReaderScreenState extends State<ReaderScreen> with WidgetsBindingObserver
     setState(() {
       _fontSize = prefs.getDouble('reader_font_size') ?? 18.0;
       _lineHeight = prefs.getDouble('reader_line_height') ?? 1.8;
-      _isDarkMode = prefs.getBoolean('reader_dark_mode') ?? false;
+      _isDarkMode = prefs.getBool('reader_dark_mode') ?? false;
     });
   }
 
@@ -70,7 +70,7 @@ class _ReaderScreenState extends State<ReaderScreen> with WidgetsBindingObserver
     final prefs = await SharedPreferences.getInstance();
     await prefs.setDouble('reader_font_size', _fontSize);
     await prefs.setDouble('reader_line_height', _lineHeight);
-    await prefs.setBoolean('reader_dark_mode', _isDarkMode);
+    await prefs.setBool('reader_dark_mode', _isDarkMode);
   }
 
   Future<void> _loadContent() async {
