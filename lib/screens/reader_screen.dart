@@ -70,9 +70,6 @@ class _ReaderScreenState extends State<ReaderScreen> {
     return PdfViewer.uri(
       Uri.file(widget.book.filePath),
       initialPageNumber: _currentPage,
-      onViewerReady: (controller, pages) {
-        // PDF loaded successfully
-      },
     );
   }
 
