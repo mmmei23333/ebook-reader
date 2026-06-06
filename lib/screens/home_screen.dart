@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import '../services/book_service.dart';
 import '../models/book.dart';
 import 'reader_screen.dart';
@@ -167,8 +168,47 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildSettings() {
+    final user = FirebaseAuth.instance.currentUser;
     return ListView(
       children: [
+        // User info section
+        if (user != null)
+          Container(
+            padding: const EdgeInsets.all(16),
+            child: Row(
+              children: [
+                CircleAvatar(
+                  radius: 30,
+                  backgroundColor: Theme.of(context).colorScheme.primary,
+                  child: Text(
+                    user.email?[0].toUpperCase() ?? '?',
+                    style: const TextStyle(fontSize: 24, color: Colors.white),
+                  ),
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        user.email ?? '未登录',
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        user.emailVerified ? '已验证' : '未验证',
+                        style: TextStyle(
+                          color: user.emailVerified ? Colors.green : Colors.orange,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        const Divider(),
         ListTile(
           leading: const Icon(Icons.dark_mode),
           title: const Text('Dark Mode'),
@@ -197,6 +237,41 @@ class _HomeScreenState extends State<HomeScreen> {
               applicationVersion: '1.0.0',
               applicationLegalese: '© 2024 Ebook Reader',
             );
+          },
+        ),
+        const Divider(),
+        ListTile(
+          leading: Icon(
+            Icons.logout,
+            color: Theme.of(context).colorScheme.error,
+          ),
+          title: Text(
+            '退出登录',
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.error,
+            ),
+          ),
+          onTap: () async {
+            final confirm = await showDialog<bool>(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: const Text('确认退出'),
+                content: const Text('确定要退出登录吗？'),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, false),
+                    child: const Text('取消'),
+                  ),
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, true),
+                    child: const Text('确认'),
+                  ),
+                ],
+              ),
+            );
+            if (confirm == true) {
+              await FirebaseAuth.instance.signOut();
+            }
           },
         ),
       ],
