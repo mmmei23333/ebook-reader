@@ -79,3 +79,6 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+实例图片/
+test_epub.dart
+PLAN.md
